@@ -1,0 +1,13 @@
+# docker-compose.yml
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+  database:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - database.env # configure postgres

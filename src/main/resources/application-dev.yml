@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url:
+    username:
+    password:
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostreSQLDialect
+  jpa:
+    hibernate:
+      ddl-auto: updated
