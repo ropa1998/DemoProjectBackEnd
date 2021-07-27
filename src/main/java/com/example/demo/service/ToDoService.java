@@ -17,4 +17,6 @@ public interface ToDoService {
     List<ToDo> getDoneToDos();
 
     List<ToDo> getNotDoneToDos();
+
+    void deleteToDo(UUID uuid);
 }

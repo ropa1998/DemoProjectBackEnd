@@ -62,4 +62,9 @@ public class ToDoServiceImpl implements ToDoService {
     public List<ToDo> getNotDoneToDos() {
         return toDoRepository.findByIsDoneFalse();
     }
+
+    @Override
+    public void deleteToDo(UUID uuid) {
+        toDoRepository.deleteById(uuid);
+    }
 }
