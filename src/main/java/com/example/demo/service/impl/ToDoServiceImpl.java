@@ -64,7 +64,11 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     @Override
-    public void deleteToDo(UUID uuid) {
-        toDoRepository.deleteById(uuid);
+    public void deleteToDo(UUID id) {
+        if (toDoRepository.existsById(id)) {
+            toDoRepository.deleteById(id);
+            return;
+        }
+        throw new EntityNotFoundException(String.format("No to-do found for id: %s", id));
     }
 }

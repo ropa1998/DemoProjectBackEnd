@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.ToDo;
+import com.example.demo.exception.EntityNotFoundException;
 import com.example.demo.model.ToDoCreateDTO;
 import com.example.demo.model.ToDoUpdateDTO;
 import com.example.demo.service.ToDoService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,6 +52,13 @@ class ToDoServiceImplTest {
 
         toDoService.deleteToDo(myUpdatedToDo.getUuid());
         assertTrue(toDoService.getAllTodos().isEmpty());
+    }
+
+    @Test
+    void exceptionTest() {
+        assertThrows(EntityNotFoundException.class, () -> {
+            toDoService.deleteToDo(UUID.randomUUID());
+        });
     }
 
 }

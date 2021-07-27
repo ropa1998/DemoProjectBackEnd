@@ -47,9 +47,15 @@ public class ToDoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ToDo> updateToDo(@RequestBody ToDoUpdateDTO toDoUpdateDTO, @PathVariable UUID id){
+    public ResponseEntity<ToDo> updateToDo(@RequestBody ToDoUpdateDTO toDoUpdateDTO, @PathVariable UUID id) {
         val updatedToDo = toDoService.updateToDo(toDoUpdateDTO, id);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedToDo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedToDo);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ToDo> deleteToDo(@PathVariable UUID id) {
+        toDoService.deleteToDo(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
