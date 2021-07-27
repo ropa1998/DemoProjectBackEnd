@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:postgresql://database:5432/database
+    username: user
+    password: password
     jpa:
       properties:
         hibernate:
@@ -10,3 +10,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: updated
+
+  profiles:
+    default: dev
