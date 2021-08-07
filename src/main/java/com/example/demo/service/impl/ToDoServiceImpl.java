@@ -71,4 +71,10 @@ public class ToDoServiceImpl implements ToDoService {
         }
         throw new EntityNotFoundException(String.format("No to-do found for id: %s", id));
     }
+
+    @Override
+    public ToDo getToDoById(UUID id) {
+        return toDoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No to-do found for id: %s", id)));
+    }
 }

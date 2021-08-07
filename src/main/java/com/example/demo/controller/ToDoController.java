@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Format;
 import com.example.demo.entity.ToDo;
 import com.example.demo.model.ToDoCreateDTO;
 import com.example.demo.model.ToDoUpdateDTO;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @RestController
@@ -39,6 +42,24 @@ public class ToDoController {
         return ResponseEntity.status(HttpStatus.OK).body(todos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getToDo(@PathVariable UUID id, @RequestParam(name = "fmt", defaultValue = "json") String format) {
+        val todo = toDoService.getToDoById(id);
+        switch (format.toLowerCase()) {
+           case Format.JSON:
+               return ResponseEntity.ok(todo);
+
+           case Format.TEXT:
+               val todoStr = String.format("To-Do: %s, with id: %s", todo.getContent(), todo.getUuid().toString());
+               return ResponseEntity.ok(todoStr);
+
+           default:
+               val msg = new StringBuilder("format should any of the following values: ");
+               Arrays.stream(Format.formats).forEach(fmt -> msg.append(String.format("%s, ", fmt)));
+               val errMsg = msg.substring(0, msg.length() - 2);
+               return ResponseEntity.badRequest().body(errMsg);
+       }
+    }
 
     @PostMapping
     public ResponseEntity<ToDo> postNewToDo(@RequestBody ToDoCreateDTO toDoCreateDTO) {
