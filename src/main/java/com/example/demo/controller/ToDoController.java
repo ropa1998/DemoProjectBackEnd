@@ -8,8 +8,10 @@ import com.example.demo.service.ToDoService;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -77,6 +79,11 @@ public class ToDoController {
     public ResponseEntity<ToDo> deleteToDo(@PathVariable UUID id) {
         toDoService.deleteToDo(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping(path = "/customers")
+    public String customers(Principal principal) {
+        return principal.getName();
     }
 
 }

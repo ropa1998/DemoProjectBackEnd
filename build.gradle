@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.keycloak.bom:keycloak-adapter-bom:13.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.h2database:h2'
